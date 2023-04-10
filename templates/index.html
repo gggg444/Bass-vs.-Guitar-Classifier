@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Classifier</title>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Image Classifier - Bass or Guitar</h1>
+        <div class="file-input-wrapper">
+            <input type="file" id="image-input" accept="image/*">
+            <label for="image-input">Select an image</label>
+        </div>
+        <button onclick="classifyImage()">Classify</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        async function classifyImage() {
+            const imageInput = document.getElementById('image-input');
+            const resultElement = document.getElementById('result');
+
+            if (!imageInput.files.length) {
+                alert('Please select an image.');
+                return;
+            }
+
+            const imageFile = imageInput.files[0];
+            const base64Image = await toBase64(imageFile);
+
+            const response = await fetch('/classify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `image=${encodeURIComponent(base64Image)}`
+            });
+
+            const jsonResponse = await response.json();
+            resultElement.textContent = `Result: ${jsonResponse.result}`;
+        }
+
+        function toBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result.split(',')[1]);
+                reader.onerror = error => reject(error);
+            });
+        }
+    </script>
+</body>
+</html>
