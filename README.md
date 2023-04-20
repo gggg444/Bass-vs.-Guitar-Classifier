@@ -8,3 +8,4 @@ Our model has been trained on thousands of high-quality images of basses and gui
 But wait, there's more! Our user-friendly web application allows you to upload any image you want, and the "Bass vs. Guitar Classifier" will instantly tell you whether it's a bass or guitar. It's like having your very own virtual guitar expert in your pocket!
 
 So, what are you waiting for? Say goodbye to the endless debates and hello to musical enlightenment with the "Bass vs. Guitar Classifier". Trust us, your friends will be impressed.
+![demo3](https://user-images.githubusercontent.com/94536388/233387895-870b88f4-7de7-4e98-aee8-0072edc5ce92.jpeg)
